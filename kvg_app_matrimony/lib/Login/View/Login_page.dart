@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kvg_app_matrimony/Bottombar/bottombar.dart';
+import 'package:kvg_app_matrimony/Createaccount/View/Step1.dart';
 
 import 'package:kvg_app_matrimony/Forgot/View/Forgot_start.dart';
 import 'package:kvg_app_matrimony/Helper/Colors.dart';
@@ -151,7 +153,14 @@ class _LoginPageState extends State<LoginPage> {
                       shbox20,
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Bottombar(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redcolour,
                             shape: RoundedRectangleBorder(
@@ -186,7 +195,14 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Step1_page(),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 "Sign Up",
                                 style: GoogleFonts.lexend(

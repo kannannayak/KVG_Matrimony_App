@@ -14,7 +14,10 @@ class AppColors {
   static const fillcolour = Color(0xffF5F5F5);
   static const redcolour = Color(0xffDC1A47);
   static const redcolour1 = Color(0xffE1204D);
-    static const redcolour2 = Color(0xffE97993);
+  static const redcolour2 = Color(0xffE97993);
+  static const custom = Color(0xffD9D9D9);
+  static const bottombar = Color(0xff490008);
+  static const notificatcentre = Color(0xffE9EDEE);
 }
 
 //====MediaQuery======
@@ -42,5 +45,7 @@ var shbox35 = const SizedBox(height: 35);
 var shbox30 = const SizedBox(height: 30);
 var shbox40 = const SizedBox(height: 40);
 //====sizedbox======Width
+var swbox5 = const SizedBox(width: 5);
+var swbox7 = const SizedBox(width: 7);
 var swbox1 = const SizedBox(width: 20);
 var swbox30 = const SizedBox(width: 30);
