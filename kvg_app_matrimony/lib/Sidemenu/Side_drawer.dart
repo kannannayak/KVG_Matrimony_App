@@ -834,15 +834,20 @@
 // ignore_for_file: sort_child_properties_last, use_key_in_widget_constructors, file_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kvg_app_matrimony/Feedback/View/Feedback.dart';
 import 'package:kvg_app_matrimony/Help/View/help.dart';
+import 'package:kvg_app_matrimony/Login/controller/login_controller.dart';
 import 'package:kvg_app_matrimony/Policies_terms/View/Policies_terms.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Login/View/Login_page.dart';
 import '../helper/colors.dart';
 
 class NavDrawer extends StatelessWidget {
+  
   // void Logout() {
   //   Get.dialog(
   //     Dialog(
@@ -927,6 +932,7 @@ class NavDrawer extends StatelessWidget {
   // }
 
   void Logout(BuildContext context) {
+    final loginController = Get.find<LoginController>();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1000,9 +1006,8 @@ class NavDrawer extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pop(); // Close dialog
-
-                      print("Yes button tapped!");
+                       Navigator.of(context).pop();
+                      loginController.logoutUser();
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.2,

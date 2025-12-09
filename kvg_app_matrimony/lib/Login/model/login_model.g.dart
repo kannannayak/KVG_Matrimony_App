@@ -1,0 +1,116 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'login_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_LoginModel _$LoginModelFromJson(Map<String, dynamic> json) => _LoginModel(
+  status: json['status'] as bool?,
+  message: json['message'] as String?,
+  userData: json['user_data'] == null
+      ? null
+      : UserData.fromJson(json['user_data'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$LoginModelToJson(_LoginModel instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'user_data': instance.userData,
+    };
+
+_UserData _$UserDataFromJson(Map<String, dynamic> json) => _UserData(
+  id: (json['id'] as num?)?.toInt(),
+  kvgProfileId: json['kvg_profile_id'] as String?,
+  name: json['name'] as String?,
+  phoneNumber: json['phone_number'] as String?,
+  altPhoneNumber: json['alt_phone_number'] as String?,
+  education: json['education'] as String?,
+  gender: json['gender'] as String?,
+  dob: json['dob'] as String?,
+  tob: json['tob'] as String?,
+  height: json['height'] as String?,
+  weight: json['weight'] as String?,
+  bodyType: json['body_type'] as String?,
+  bodyColour: json['body_colour'] as String?,
+  konguKulam: json['kongu_kulam'] as String?,
+  singleParent: json['single_parent'] as String?,
+  district: json['district'] as String?,
+  subdistrict: json['subdistrict'] as String?,
+  fatherName: json['father_name'] as String?,
+  motherName: json['mother_name'] as String?,
+  aadharAddress: json['aadhar_address'] as String?,
+  expectation: json['expectation'] as String?,
+  brotherMarried: (json['brother_married'] as num?)?.toInt(),
+  brotherUnmarried: (json['brother_unmarried'] as num?)?.toInt(),
+  sisterMarried: (json['sister_married'] as num?)?.toInt(),
+  sisterUnmarried: (json['sister_unmarried'] as num?)?.toInt(),
+  rasi: json['rasi'] as String?,
+  natchathiram: json['natchathiram'] as String?,
+  propertyValue: json['property_value'] as String?,
+  acresValue: json['acres_value'] as String?,
+  employed: json['employed'] as String?,
+  occupation: json['occupation'] as String?,
+  annualIncome: json['annual_income'] as String?,
+  workLocation: json['work_location'] as String?,
+  profileImg1: json['profile_img1'] as String?,
+  profileImg2: json['profile_img2'] as String?,
+  profileImg3: json['profile_img3'] as String?,
+  communityCertificate: json['community_certificate'] as String?,
+  idFront: json['id_front'] as String?,
+  idBack: json['id_back'] as String?,
+  jathagamFull: json['jathagam_full'] as String?,
+  jathagamHalf: json['jathagam_half'] as String?,
+  email: json['email'] as String?,
+  passwordPin: json['password_pin'] as String?,
+  createdAt: json['created_at'] as String?,
+);
+
+Map<String, dynamic> _$UserDataToJson(_UserData instance) => <String, dynamic>{
+  'id': instance.id,
+  'kvg_profile_id': instance.kvgProfileId,
+  'name': instance.name,
+  'phone_number': instance.phoneNumber,
+  'alt_phone_number': instance.altPhoneNumber,
+  'education': instance.education,
+  'gender': instance.gender,
+  'dob': instance.dob,
+  'tob': instance.tob,
+  'height': instance.height,
+  'weight': instance.weight,
+  'body_type': instance.bodyType,
+  'body_colour': instance.bodyColour,
+  'kongu_kulam': instance.konguKulam,
+  'single_parent': instance.singleParent,
+  'district': instance.district,
+  'subdistrict': instance.subdistrict,
+  'father_name': instance.fatherName,
+  'mother_name': instance.motherName,
+  'aadhar_address': instance.aadharAddress,
+  'expectation': instance.expectation,
+  'brother_married': instance.brotherMarried,
+  'brother_unmarried': instance.brotherUnmarried,
+  'sister_married': instance.sisterMarried,
+  'sister_unmarried': instance.sisterUnmarried,
+  'rasi': instance.rasi,
+  'natchathiram': instance.natchathiram,
+  'property_value': instance.propertyValue,
+  'acres_value': instance.acresValue,
+  'employed': instance.employed,
+  'occupation': instance.occupation,
+  'annual_income': instance.annualIncome,
+  'work_location': instance.workLocation,
+  'profile_img1': instance.profileImg1,
+  'profile_img2': instance.profileImg2,
+  'profile_img3': instance.profileImg3,
+  'community_certificate': instance.communityCertificate,
+  'id_front': instance.idFront,
+  'id_back': instance.idBack,
+  'jathagam_full': instance.jathagamFull,
+  'jathagam_half': instance.jathagamHalf,
+  'email': instance.email,
+  'password_pin': instance.passwordPin,
+  'created_at': instance.createdAt,
+};

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kvg_app_matrimony/Bottombar/bottombar.dart';
 import 'package:kvg_app_matrimony/Createaccount/View/Step1.dart';
 
 import 'package:kvg_app_matrimony/Forgot/View/Forgot_start.dart';
 import 'package:kvg_app_matrimony/Helper/Colors.dart';
+import 'package:kvg_app_matrimony/Login/controller/login_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,8 +17,50 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _isPasswordVisible = false;
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  final loginController = Get.put(LoginController());
+  late AnimationController spinController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    spinController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    autoLoginCheck();
+  }
+
+  @override
+  void dispose() {
+    spinController.dispose();
+    super.dispose();
+  }
+
+  Future<void> autoLoginCheck() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? id = pref.getString("kvg_profile_id");
+
+    if (id != null) {
+      Future.delayed(Duration(milliseconds: 500), () {
+        Get.offAll(() => Bottombar());
+      });
+    }
+  }
+
+  final spinkit = SpinKitFadingCircle(
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? Colors.red : Colors.green,
+        ),
+      );
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     setScreenSize(context);
@@ -81,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       shbox5,
                       TextField(
                         maxLength: 10,
+                        controller: loginController.useridController.value,
                         decoration: InputDecoration(
                           prefix: Text(
                             "+91 ",
@@ -106,23 +153,22 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       shbox5,
-                      TextField(
-                        maxLength: 8,
-                        obscureText: !_isPasswordVisible,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          suffix: IconButton(
-                            icon: Icon(
-                              _isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: AppColors.Textcolor,
+                      Obx(
+                        () => TextField(
+                          maxLength: 8,
+                          obscureText: !loginController.passwordVisible.value,
+                          controller: loginController.passwordController.value,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            suffix: IconButton(
+                              icon: Icon(
+                                loginController.passwordVisible.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: AppColors.Textcolor,
+                              ),
+                              onPressed: loginController.updateVisibility,
                             ),
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
-                              });
-                            },
                           ),
                         ),
                       ),
@@ -152,34 +198,57 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       shbox20,
                       Center(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Bottombar(),
+                        child: Obx(() {
+                          return ElevatedButton(
+                            onPressed: loginController.isloading.value
+                                ? null
+                                : () {
+                                    spinController.repeat();
+                                    loginController
+                                        .loginUser(
+                                          userid: loginController
+                                              .useridController
+                                              .value
+                                              .text,
+                                          password: loginController
+                                              .passwordController
+                                              .value
+                                              .text,
+                                        )
+                                        .then((_) {
+                                          spinController.stop();
+                                        });
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.redcolour,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.redcolour,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 75,
+                                vertical: 20,
+                              ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 75,
-                              vertical: 20,
-                            ), // width, height
-                          ),
-                          child: Text(
-                            "Login",
-                            style: GoogleFonts.lexend(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
+                            child: loginController.isloading.value
+                                ? SizedBox(
+                                    width: 50,
+                                    height: 10,
+                                    child: SpinKitRotatingCircle(
+                                      color: Colors.white,
+                                      size: 40,
+                                      controller: spinController,
+                                    ),
+                                  )
+                                : Text(
+                                    "Login",
+                                    style: GoogleFonts.lexend(
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                          );
+                        }),
                       ),
                       shbox15,
                       Center(
